@@ -6,29 +6,43 @@ const Authors = (props)=>{
 
     const [authors, setAuthors] = useState([]);
     const navigate = useNavigate();
+
     
     useEffect(()=>{
         axios.get('http://localhost:8000/api/author/')
-            .then((res)=>{
-                console.log(res);
-                console.log(res.data);
-                setAuthors(res.data);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-     }, [])
+        .then((res)=>{
+            // console.log("res.data is: ");
+            // console.log(res.data);
+            setAuthors(res.data.sort(SortArray));
+            // let nib = res.data.sort(SortArray)
+            console.log(authors);
+            // setAuthors(nib);
+        })
+        .catch((err)=>{
+            // console.log(err);
+        })
+    }, [])
+    
+    const SortArray = (x, y) =>{
+        return x.name.localeCompare(y.name);
+    } 
 
+    // function SortArray(x, y){
+    //     // console.log(x.name)
+    //     return x.name.localeCompare(y.name);
+    // } 
+    
      const deleteHandler = (id)=>{
         axios.delete(`http://localhost:8000/api/author/${id}`)
             .then((res)=>{
-                console.log(res.data);
+                // console.log(res.data);
                 setAuthors(authors.filter((author)=>author._id !== id))
             })
             .catch((err)=>{
-                console.log(err);
+                // console.log(err);
             })
     }
+
 
     return(
         <div className="container">
