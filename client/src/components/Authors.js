@@ -56,6 +56,7 @@ const Authors = (props)=>{
                 <thead>
                    <tr>
                         <th>Author</th>
+                        <th>Books</th>
                         <th>Actions Available</th>
                     </tr>
                 </thead>
@@ -65,6 +66,8 @@ const Authors = (props)=>{
                         authors.map((author, index)=>(
                             <tr key={index}>
                                 <td>{author.name}</td>
+                                {/* <td>{author.books}</td> */}
+                                <td>{author.books ? author.books.map((book, index) => <p key={index}>{book}</p> ): null}</td>
                                 <td>
                                     <button className='btn btn-secondary' onClick={()=>{navigate(`/author/edit/${author._id}`)}}>Edit</button>
                                     <button className='btn btn-danger ms-3' onClick={(e)=>deleteHandler(author._id)}>Delete</button>
